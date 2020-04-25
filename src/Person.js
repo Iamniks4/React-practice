@@ -18,6 +18,10 @@ const Person = (props) => {
             width: '450px'
         }
     }
+    const rnd = Math.random();
+    if(rnd > 0.7) {
+        throw new Error('Something Went Wrong!!')
+    }
      return (
         //  <div> 
         <StyledDiv>
