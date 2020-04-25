@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Person from './Person';
+import './App.css';
 
 class App extends React.Component {
   state = {
     persons: [
-      {id: 'hgchgc', name: 'nikhil', age: 23},
-      {id: 'uubcfh', name: 'pooja', age: 45},
-      {id: 'ytydjh', name: 'ved', age: 47},
+      { id: 'hgchgc', name: 'nikhil', age: 23 },
+      { id: 'uubcfh', name: 'pooja', age: 45 },
+      { id: 'ytydjh', name: 'ved', age: 47 },
     ],
     showPersons: false
   }
@@ -36,9 +37,31 @@ class App extends React.Component {
     this.setState({ persons: persons })
   }
   render() {
+    const style = {
+      backgroundColor: 'green',
+      color: 'white',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
+    }
     let persons = null;
+    let textToBeDisplayed = 'This is really working!!!';
+    const classes = [];
 
-    if(this.state.showPersons) {
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
+    }
+
+    if (this.state.persons.length < 1) {
+      textToBeDisplayed = 'This is really not working anymore!!';
+    }
+
+    if (this.state.showPersons) {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
@@ -48,20 +71,27 @@ class App extends React.Component {
                 key={person.id}
                 name={person.name}
                 age={person.age}
-                changed={(event) => this.nameChangeHandler(event, person.id)}/>
+                changed={(event) => this.nameChangeHandler(event, person.id)} />
             )
           })}
-      </div>
+        </div>
       )
+      style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
     }
     return (
       <div className='App'>
+        <p className={classes.join(' ')}>{textToBeDisplayed}</p>
         <button
+          style={style}
           onClick={this.showOrHideToggle}
         >
           Toggle
         </button>
-       {persons}
+        {persons}
       </div>
     )
   }
