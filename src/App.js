@@ -1,25 +1,19 @@
-import React from 'react';
+import React, { useState, createContext } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ChildComponent from './ChildComponent.jsx';
+
+export const AppContext = createContext({ count: 0, setCount: () => { } });
 
 function App() {
+  const [count, setCount] = useState(0);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{ count, setCount }}>
+      <div className="App">
+        <h2>{count}</h2>
+        <ChildComponent />
+      </div>
+    </AppContext.Provider>
   );
 }
 
